@@ -20,7 +20,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.x"
+          python-version: "3.13"
 
       - name: Install dependencies
         run: |
@@ -31,23 +31,40 @@ jobs:
         run: |
           python << 'EOF'
           import requests
-
+          from datetime import datetime, timezone
+          
           URL = "https://raw.githubusercontent.com/duckduckgo/tracker-blocklists/refs/heads/main/app/android-tds.json"
           OUTPUT_FILE = "ddg-app-tracking-protection-blocklist.txt"
-
+          
           response = requests.get(URL, timeout=30)
           response.raise_for_status()
-
+          
           tracker_dict = response.json()["trackers"]
           tracker_domains = sorted(
               k for k, v in tracker_dict.items()
               if v.get("default") == "block"
           )
-
+          
+          
+          now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+          header = (
+          f"""
+          # Title: DDG App Tracking Protection Blocklist
+          # Description: Blocklist derived from DuckDuckGo App Tracking Protection
+          # Homepage: https://github.com/alop1pcp/custom-unbound-blocklists
+          # License: MIT
+          # Last modified: {now}
+          # Format: domains
+          # Entries: {len(tracker_domains):,}
+          \n\n
+          """
+          )
+          
           with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+              f.write(header)
               for domain in tracker_domains:
                   f.write(domain + "\n")
-
+          
           print(f"Wrote {len(tracker_domains)} domains to {OUTPUT_FILE}")
           EOF
 
