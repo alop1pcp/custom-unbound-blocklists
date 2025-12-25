@@ -1,0 +1,64 @@
+name: Update DuckDuckGo App Tracking Protection Blocklist
+
+on:
+  schedule:
+    # Runs once per day at 02:00 UTC
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-blocklist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Generate blocklist
+        run: |
+          python << 'EOF'
+          import requests
+
+          URL = "https://raw.githubusercontent.com/duckduckgo/tracker-blocklists/refs/heads/main/app/android-tds.json"
+          OUTPUT_FILE = "ddg-app-tracking-protection-blocklist.txt"
+
+          response = requests.get(URL, timeout=30)
+          response.raise_for_status()
+
+          tracker_dict = response.json()["trackers"]
+          tracker_domains = sorted(
+              k for k, v in tracker_dict.items()
+              if v.get("default") == "block"
+          )
+
+          with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+              for domain in tracker_domains:
+                  f.write(domain + "\n")
+
+          print(f"Wrote {len(tracker_domains)} domains to {OUTPUT_FILE}")
+          EOF
+
+      - name: Commit and push if changed
+        run: |
+          if git diff --quiet; then
+            echo "No changes to commit."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add ddg-app-tracking-protection-blocklist.txt
+            git commit -m "Update DuckDuckGo app tracking protection blocklist"
+            git push
+          fi
