@@ -54,7 +54,7 @@ jobs:
           # License: MIT
           # Last modified: {now}
           # Format: domains
-          # Entries: {len(tracker_domains):,}
+          # Entries: {len(tracker_domains):,}\n
           """
           )
           
