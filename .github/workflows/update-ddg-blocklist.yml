@@ -48,15 +48,13 @@ jobs:
           
           now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
           header = (
-          f"""
-          # Title: DDG App Tracking Protection Blocklist
+          f"""# Title: DDG App Tracking Protection Blocklist
           # Description: Blocklist derived from DuckDuckGo App Tracking Protection
           # Homepage: https://github.com/alop1pcp/custom-unbound-blocklists
           # License: MIT
           # Last modified: {now}
           # Format: domains
           # Entries: {len(tracker_domains):,}
-          \n\n
           """
           )
           
