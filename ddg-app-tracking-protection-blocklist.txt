@@ -2,7 +2,7 @@
 # Description: Blocklist derived from DuckDuckGo App Tracking Protection
 # Homepage: https://github.com/alop1pcp/custom-unbound-blocklists
 # License: MIT
-# Last modified: 2025-12-28 03:30:14 UTC
+# Last modified: 2025-12-29 03:41:26 UTC
 # Format: domains
 # Entries: 274
 
