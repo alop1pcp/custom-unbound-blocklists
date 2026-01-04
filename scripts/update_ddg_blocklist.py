@@ -13,7 +13,7 @@ def get_tracker_list_from_url(url: str):
   response.raise_for_status()
   return response
 
-os.makedirs("blocklists", exists_ok=True)
+os.makedirs("blocklists", exist_ok=True)
 
 previous_raw = get_tracker_list_from_url(URL_TARGET).text
 previous_trackers = [l.strip() for l in previous_raw.splitlines() if not l.startswith("#") and l.strip() != ""]
