@@ -1,4 +1,4 @@
-name: Update DuckDuckGo App Tracking Protection Blocklist
+name: Update blocklists
 
 on:
   schedule:
@@ -27,7 +27,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Generate blocklist
+      - name: Generate blocklists
         run: |
           python scripts/update_ddg_blocklist.py
 
@@ -38,7 +38,7 @@ jobs:
           else
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add ddg-app-tracking-protection-blocklist.txt
-            git commit -m "Update DuckDuckGo app tracking protection blocklist"
+            git add .
+            git commit -m "Update blocklists"
             git push
           fi
