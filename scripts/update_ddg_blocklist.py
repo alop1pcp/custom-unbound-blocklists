@@ -2,10 +2,12 @@ import os
 import requests
 from datetime import datetime, timezone
 
-URL_TARGET = "https://raw.githubusercontent.com/alop1pcp/custom-unbound-blocklists/refs/heads/main/ddg-app-tracking-protection-blocklist.txt"
-URL_SRC = "https://raw.githubusercontent.com/duckduckgo/tracker-blocklists/refs/heads/main/app/android-tds.json"
+
 OUTPUT_DIR = "blocklists"
 OUTPUT_FILE = f"{OUTPUT_DIR}/ddg-app-tracking-protection-blocklist.txt"
+
+URL_TARGET = f"https://raw.githubusercontent.com/alop1pcp/custom-unbound-blocklists/refs/heads/main/{OUTPUT_FILE}"
+URL_SRC = "https://raw.githubusercontent.com/duckduckgo/tracker-blocklists/refs/heads/main/app/android-tds.json"
 
 
 def get_tracker_list_from_url(url: str):
