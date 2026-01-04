@@ -24,6 +24,7 @@ tracker_domains = sorted(
 if previous_trackers == tracker_domains:
   with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
     f.write(previous_raw)
+    print("No changes")
     raise SystemExit(0)
 
 
