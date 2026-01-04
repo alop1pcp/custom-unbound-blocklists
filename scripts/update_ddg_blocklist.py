@@ -1,15 +1,19 @@
+import os
 import requests
 from datetime import datetime, timezone
 
 URL_TARGET = "https://raw.githubusercontent.com/alop1pcp/custom-unbound-blocklists/refs/heads/main/ddg-app-tracking-protection-blocklist.txt"
 URL_SRC = "https://raw.githubusercontent.com/duckduckgo/tracker-blocklists/refs/heads/main/app/android-tds.json"
-OUTPUT_FILE = "ddg-app-tracking-protection-blocklist.txt"
+OUTPUT_DIR = "blocklists"
+OUTPUT_FILE = f"{OUTPUT_DIR}/ddg-app-tracking-protection-blocklist.txt"
 
 
 def get_tracker_list_from_url(url: str):
   response = requests.get(url, timeout=30)
   response.raise_for_status()
   return response
+
+os.makedirs("blocklists", exists_ok=True)
 
 previous_raw = get_tracker_list_from_url(URL_TARGET).text
 previous_trackers = [l.strip() for l in previous_raw.splitlines() if not l.startswith("#") and l.strip() != ""]
