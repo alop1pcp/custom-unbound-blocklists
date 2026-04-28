@@ -2,9 +2,9 @@
 # Description: Blocklist derived from DuckDuckGo App Tracking Protection
 # Homepage: https://github.com/alop1pcp/custom-unbound-blocklists
 # License: MIT
-# Last modified: 2026-01-03 03:16:00 UTC
+# Last modified: 2026-04-28 05:26:45 UTC
 # Format: domains
-# Entries: 274
+# Entries: 272
 
 15.taboola.com
 a.applovin.com
@@ -79,7 +79,6 @@ click-haproxy.supersonicads.com
 cloud.unity3d.com
 cm.everesttech.net
 collect.igodigital.com
-combine.urbanairship.com
 configure.rayjump.com
 connect.facebook.net
 connect.tapjoy.com
@@ -97,7 +96,6 @@ d.turn.com
 d9.flashtalking.com
 data.flurry.com
 de.tynt.com
-device-api.urbanairship.com
 device.marketingcloudapis.com
 di.rlcdn.com
 dis.criteo.com
